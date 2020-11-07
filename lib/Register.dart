@@ -42,6 +42,25 @@ class _RegisterState extends State<Register> {
                             borderSide: new BorderSide(color: Colors.teal)),
                         contentPadding: EdgeInsets.only(
                             left: 15, bottom: 11, top: 11, right: 15),
+                        hintText: "Name"),
+                    // The validator receives the text that the user has entered.
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    decoration: new InputDecoration(
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.teal)),
+                        contentPadding: EdgeInsets.only(
+                            left: 15, bottom: 11, top: 11, right: 15),
                         hintText: "Email"),
                     // The validator receives the text that the user has entered.
                     validator: (value) {
