@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:terms_conditons_app/Home/Home.dart';
+import 'package:terms_conditons_app/Server_Service/Observator.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -7,6 +11,9 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
+  String name;
+  String email;
+  String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +54,8 @@ class _RegisterState extends State<Register> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter some text';
+                      } else {
+                        name = value;
                       }
                       return null;
                     },
@@ -66,8 +75,9 @@ class _RegisterState extends State<Register> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter some text';
+                      } else {
+                        email = value;
                       }
-                      return null;
                     },
                   ),
                   SizedBox(
@@ -85,6 +95,8 @@ class _RegisterState extends State<Register> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter some text';
+                      } else {
+                        password = value;
                       }
                       return null;
                     },
@@ -126,9 +138,9 @@ class _RegisterState extends State<Register> {
                           if (_formKey.currentState.validate()) {
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
-
-                            Scaffold.of(context).showSnackBar(
-                                SnackBar(content: Text('Processing Data')));
+                            var observer = Provider.of<Observer>(context);
+                            print(name + " " + email + " " + " " + password);
+                            observer.register(name, email, password);
                           }
                         },
                         child: Text('Register'),

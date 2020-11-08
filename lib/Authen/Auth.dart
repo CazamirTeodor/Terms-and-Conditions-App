@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:terms_conditons_app/Authen/Register.dart';
+import 'package:terms_conditons_app/Home/Home.dart';
+import 'package:terms_conditons_app/Server_Service/Observator.dart';
 
 class Auth extends StatefulWidget {
   @override
@@ -8,7 +12,8 @@ class Auth extends StatefulWidget {
 
 class _AuthState extends State<Auth> {
   final _formKey = GlobalKey<FormState>();
-
+  String email;
+  String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +49,8 @@ class _AuthState extends State<Auth> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter some text';
+                      } else {
+                        email = value;
                       }
                       return null;
                     },
@@ -63,6 +70,8 @@ class _AuthState extends State<Auth> {
                     validator: (value) {
                       if (value.isEmpty) {
                         return 'Please enter some text';
+                      } else {
+                        password = value;
                       }
                       return null;
                     },
@@ -85,9 +94,9 @@ class _AuthState extends State<Auth> {
                           if (_formKey.currentState.validate()) {
                             // If the form is valid, display a snackbar. In the real world,
                             // you'd often call a server or save the information in a database.
-
-                            Scaffold.of(context).showSnackBar(
-                                SnackBar(content: Text('Processing Data')));
+                            print(email + " " + password);
+                            var observer = Provider.of<Observer>(context);
+                            observer.auth(email, password);
                           }
                         },
                         child: Text('Login'),
@@ -100,14 +109,8 @@ class _AuthState extends State<Auth> {
                         padding: EdgeInsets.all(8.0),
                         splashColor: Colors.blueAccent,
                         onPressed: () {
-                          // Validate returns true if the form is valid, otherwise false.
-                          if (_formKey.currentState.validate()) {
-                            // If the form is valid, display a snackbar. In the real world,
-                            // you'd often call a server or save the information in a database.
-
-                            Scaffold.of(context).showSnackBar(
-                                SnackBar(content: Text('Processing Data')));
-                          }
+                          var observer = Provider.of<Observer>(context);
+                          observer.set_login_screen(false);
                         },
                         child: Text('Register'),
                       ),
